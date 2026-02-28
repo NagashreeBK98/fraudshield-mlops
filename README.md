@@ -61,49 +61,55 @@ GCP VM (Ubuntu 24.04 | e2-medium | us-central1-a)
 | 📊 Dashboard | http://136.114.127.5:8501 |
 
 ### GCP VM — All Services Running
-![GCP Terminal](screenshots/gcp-terminal.png)
+<img width="1503" height="248" alt="image" src="https://github.com/user-attachments/assets/762070c6-4be6-4a8b-afaa-530a2a554b27" />
+
 
 ### API Live on Public IP
-![GCP API](screenshots/gcp-api-health.png)
+<img width="829" height="182" alt="image" src="https://github.com/user-attachments/assets/3c2b4661-6e19-4527-b6d7-411d6e3c7328" />
+
 
 ### Streamlit Dashboard on GCP
-![GCP Dashboard](screenshots/gcp-streamlit.png)
+<img width="1563" height="994" alt="image" src="https://github.com/user-attachments/assets/c685a23c-5e1b-41df-bf27-98802d0e15ed" />
 
 ---
 
 ## 📊 Streamlit Dashboard
 
 ### Real-Time Fraud Detection
-![Streamlit Fraud](screenshots/streamlit-fraud.png)
+<img width="1604" height="862" alt="image" src="https://github.com/user-attachments/assets/70ea2e53-d667-4ef7-b1a7-b9a1052a4e5f" />
+
 
 ### Live Analytics Dashboard
-![Streamlit Dashboard](screenshots/streamlit-dashboard.png)
+<img width="1615" height="917" alt="image" src="https://github.com/user-attachments/assets/e6394ce3-b6f7-4a3e-b95f-8b7a2503c4bf" />
+
 
 ### Prediction History from PostgreSQL
-![Streamlit History](screenshots/streamlit-history.png)
+<img width="1636" height="752" alt="image" src="https://github.com/user-attachments/assets/6bb08013-a4c4-4f8c-894e-b80dc50f8a71" />
+
 
 ---
 
 ## 🧪 API Testing (Postman)
 
 ### FRAUD Detection — 93.26% probability
-![Postman Fraud](screenshots/postman-fraud.png)
+<img width="1533" height="720" alt="image" src="https://github.com/user-attachments/assets/f5e26a34-ccae-484c-9bb5-673d862f40a7" />
+
 
 ### LEGITIMATE Transaction
-![Postman Legit](screenshots/postman-legit.png)
+<img width="1551" height="814" alt="image" src="https://github.com/user-attachments/assets/d59d2010-b456-4133-856a-8db6d87d32a8" />
+
 
 ---
 
 ## 🐳 Docker
 
 ### Single Container (docker-basics)
-![Docker Build](screenshots/docker-basics-build.png)
+<img width="1088" height="196" alt="image" src="https://github.com/user-attachments/assets/324a80db-3956-4831-9687-204a78926869" />
+
 
 ### Multi-Service (docker-compose) — All Healthy
-![Docker PS](screenshots/docker-ps-all.png)
+<img width="1199" height="147" alt="image" src="https://github.com/user-attachments/assets/f3be1b89-2c9e-426f-b4ad-63460060cca7" />
 
-### PostgreSQL Prediction Logs
-![Postgres](screenshots/postgres-predictions.png)
 
 ---
 
@@ -142,7 +148,7 @@ fraudshield-mlops/
 │   ├── trainer/
 │   └── postgres/
 ├── postman/
-└── screenshots/
+
 ```
 
 ---
