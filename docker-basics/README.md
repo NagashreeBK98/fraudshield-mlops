@@ -187,7 +187,8 @@ docker rmi fraudshield-api:v1
 ## 📸 Screenshots
 
 **Docker image build:**
-<img width="2724" height="1952" alt="image" src="https://github.com/user-attachments/assets/5abbe511-a797-4d3b-a3c6-b099d3db01a3" />
+<img width="1650" height="533" alt="image" src="https://github.com/user-attachments/assets/62a0b6f2-5846-4b64-a172-8335582afd0b" />
+
 
 
 **Container running:**
@@ -198,4 +199,5 @@ docker rmi fraudshield-api:v1
 
 **Postman LEGITIMATE:**
 > ![postman-legit](../screenshots/postman-legit.png)
+
 
