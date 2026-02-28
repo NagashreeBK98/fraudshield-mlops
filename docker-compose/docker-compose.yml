@@ -1,0 +1,109 @@
+version: "3.9"
+
+services:
+
+  # ─────────────────────────────────────────
+  # 1. TRAINER — runs once, saves model artifacts
+  # ─────────────────────────────────────────
+  trainer:
+    build:
+      context: ./trainer
+    container_name: fraudshield-trainer
+    volumes:
+      - ./data:/data:ro
+      - model_artifacts:/artifacts
+    environment:
+      - DATA_PATH=/data/creditcard_sample.csv
+      - ARTIFACTS_PATH=/artifacts
+    networks:
+      - fraudshield-net
+
+  # ─────────────────────────────────────────
+  # 2. POSTGRES — prediction logging
+  # ─────────────────────────────────────────
+  postgres:
+    image: postgres:15-alpine
+    container_name: fraudshield-postgres
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - fraudshield-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─────────────────────────────────────────
+  # 3. ML-API — FastAPI prediction service
+  # ─────────────────────────────────────────
+  ml-api:
+    build:
+      context: ./ml-api
+    container_name: fraudshield-api-v2
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - model_artifacts:/artifacts:ro
+    ports:
+      - "8001:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - fraudshield-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+
+  # ─────────────────────────────────────────
+  # 4. DASHBOARD — Streamlit live UI
+  # ─────────────────────────────────────────
+  dashboard:
+    build:
+      context: ./dashboard
+    container_name: fraudshield-dashboard
+    restart: unless-stopped
+    environment:
+      - API_URL=http://ml-api:8000
+    ports:
+      - "8501:8501"
+    depends_on:
+      ml-api:
+        condition: service_healthy
+    networks:
+      - fraudshield-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+# ─────────────────────────────────────────
+# Volumes & Networks
+# ─────────────────────────────────────────
+volumes:
+  postgres_data:
+  model_artifacts:
+
+networks:
+  fraudshield-net:
+    driver: bridge
