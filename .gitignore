@@ -1,0 +1,13 @@
+# Data files
+*.csv
+data/
+**/data/
+
+# Model artifacts
+*.pkl
+*.json
+__pycache__/
+*.pyc
+
+# Environment
+.env
